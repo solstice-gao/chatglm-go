@@ -25,7 +25,7 @@ func NewChatService(authorization string, cookie string) *ChatService {
 	}
 }
 
-func (s *ChatService) GetChatStream(contextId string) bufio.Scanner {
+func (s *ChatService) GetChatStream(contextId string) (bufio.Scanner, error) {
 	scanner := bufio.NewScanner(nil)
 	url := "https://chatglm.cn/chatglm/backend-api/v1/stream?context_id=" + contextId
 	method := "GET"
@@ -35,7 +35,7 @@ func (s *ChatService) GetChatStream(contextId string) bufio.Scanner {
 
 	if err != nil {
 		fmt.Println(err)
-		return *scanner
+		return *scanner, err
 	}
 	req.Header.Add("authority", "chatglm.cn")
 	req.Header.Add("accept", "text/event-stream")
@@ -54,12 +54,12 @@ func (s *ChatService) GetChatStream(contextId string) bufio.Scanner {
 	res, err := client.Do(req)
 	if err != nil {
 		fmt.Println(err)
-		return *scanner
+		return *scanner, err
 	}
 	defer res.Body.Close()
 
 	scanner = bufio.NewScanner(res.Body)
-	return *scanner
+	return *scanner, nil
 }
 
 func (s *ChatService) GetTaskId(prompt string) *entity.TaskResponse {
