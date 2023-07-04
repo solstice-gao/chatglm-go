@@ -2,12 +2,13 @@ package pkg
 
 import (
 	"bufio"
-	"chatglm/entity"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
+
+	"github.com/17604515707/chatglm-go/entity"
 )
 
 type ChatService struct {
