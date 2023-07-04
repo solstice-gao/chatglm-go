@@ -47,11 +47,17 @@ func main() {
 	context := chatservice.GetContextId(prompt, task.Result.TaskID)
 
 	// 调用获取聊天数据的方法
-	chatData, err := chatservice.GetChatStream(context.Result.ContextID, true)
+	sacnner,err := chatservice.GetChatStream(context.Result.ContextID, true)
 
 	if err != nil {
-		fmt.Println("获取聊天数据失败:", err)
+		fmt.Println(err)
 		return
+	}
+	
+	var lastLine string
+	for scanner.Scan() {
+		line := scanner.Text()
+		fmt.Println(line)
 	}
 
 	// 处理聊天数据
