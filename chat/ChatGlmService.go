@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/17604515707/chatglm-go/entity"
+	"github.com/solstice-gao/chatglm-go/entity"
 )
 
 type ChatService struct {
@@ -17,11 +17,11 @@ type ChatService struct {
 	cookie        string
 }
 
-func NewChatService() *ChatService {
+func NewChatService(authorization string, cookie string) *ChatService {
 	return &ChatService{
 		// ... 初始化依赖或其他属性
-		authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODM2ODQ2NywianRpIjoiY2RkMjU4ZjUtOTkzZi00ZDg5LWFmZTUtMWNhODJlOTAwOWU1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ijk0MWEzZDdkNmQ4YjQ0YjFiMWMxNmMzMmY0YTY3ZmY3IiwibmJmIjoxNjg4MzY4NDY3LCJleHAiOjE2ODg0NTQ4NjcsInJvbGVzIjpbInVuYXV0aGVkX3VzZXIiXX0.-Xgua7nSmBhFiCihwi1WwXhRJtTl0o5SIXbfDUmPvho",
-		cookie:        "_ga=GA1.1.1779331165.1685785881; chatglm_refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NTgwMjE1MSwianRpIjoiYzRiZjJjOTktYTgwOS00MWJhLWIwNTktMTVlM2U4YTJmMTJiIiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiI5NDFhM2Q3ZDZkOGI0NGIxYjFjMTZjMzJmNGE2N2ZmNyIsIm5iZiI6MTY4NTgwMjE1MSwiZXhwIjoxNzAxMzU0MTUxLCJyb2xlcyI6WyJ1bmF1dGhlZF91c2VyIl19.L9p18l4agffQAQd5SGbBPNexYi79py_IlBKeGTXQbuo; chatglm_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4ODM2ODQ2NywianRpIjoiY2RkMjU4ZjUtOTkzZi00ZDg5LWFmZTUtMWNhODJlOTAwOWU1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ijk0MWEzZDdkNmQ4YjQ0YjFiMWMxNmMzMmY0YTY3ZmY3IiwibmJmIjoxNjg4MzY4NDY3LCJleHAiOjE2ODg0NTQ4NjcsInJvbGVzIjpbInVuYXV0aGVkX3VzZXIiXX0.-Xgua7nSmBhFiCihwi1WwXhRJtTl0o5SIXbfDUmPvho; chatglm_token_expires=2023-07-03%2017:14:27; SL_G_WPT_TO=zh; SL_GWPT_Show_Hide_tmp=1; SL_wptGlobTipTmp=1; _ga_PMD05MS2V9=GS1.1.1688376755.18.1.1688376759.0.0.0",
+		authorization: authorization,
+		cookie:        cookie,
 	}
 }
 
@@ -78,11 +78,11 @@ func (s *ChatService) GetChatStream(contextId string, outputAll bool) {
 	}
 }
 
-func (s *ChatService) GetTaskId() *entity.TaskResponse {
+func (s *ChatService) GetTaskId(prompt string) *entity.TaskResponse {
 	url := "https://chatglm.cn/chatglm/backend-api/v1/conversation"
 	method := "POST"
 
-	payload := strings.NewReader(`{"prompt":"我想研究的论文方向是chat大模型对未来的影响，请帮我生成论文目录大纲，使用markdown格式生成"}`)
+	payload := strings.NewReader(`{"prompt":"` + prompt + `"}`)
 
 	client := &http.Client{}
 	req, err := http.NewRequest(method, url, payload)

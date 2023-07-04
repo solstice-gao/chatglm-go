@@ -1,3 +1,3 @@
-module github.com/17604515707/chatglm-go
+module github.com/solstice-gao/chatglm-go
 
 go 1.20
