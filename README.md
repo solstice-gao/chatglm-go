@@ -36,10 +36,10 @@ ChatGLM Go SDK 使用 MIT 许可证。详细信息请参阅许可证文件（LIC
 
 ## 联系方式
 
-如果你有任何问题或建议，可以通过以下方式联系我或原作者：
+如果你有任何问题或建议，可以通过以下方式联系我：
 
-- 邮箱：原作者: 17604515707@163.com  我: Anyc66666666@gmail.com
-- GitHub 项目主页：https://github.com/solstice-gao https://github.com/Anyc66666666
+- 邮箱：原作者: 17604515707@163.com
+- GitHub 项目主页：https://github.com/solstice-gao
 
 请随时提出问题或反馈，我会尽快回复。
 
